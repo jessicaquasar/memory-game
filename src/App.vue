@@ -1,23 +1,38 @@
 <template>
   <div id="app">
-    <List title="Memory Game"/>
+    <!-- <List title="Memory Game"/> -->
+    <div class="">
+      <h1>{{ title }}</h1>
+      <ul v-if="cards.length">
+        <li v-for="(item, index) in cards" :key="index">
+          {{ item.name }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-import List from "@/components/List";
+// import List from "@/components/List";
 import { get } from "@/services/marvel";
 
 export default {
   name: "app",
   components: {
-    List
+
   },
   data: () => ({
+    title: "Memory Game",
     cards: []
   }),
   mounted() {
     get()
+      .then((response) => {
+        this.cards = response.data.data.results //refatorar
+        
+      }).catch((err) => {
+        
+      });
   }
 };
 </script>
