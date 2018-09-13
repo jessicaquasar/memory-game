@@ -5,7 +5,7 @@
       <h1>{{ title }}</h1>
       <ul class="list" v-if="cards.length">
         <li class="flipper" v-bind:class='{ "click" : (isActive[index])}' v-for="(item, index) in cards" :key="index">
-          <img class="img front" src="./assets/marvel-logo.png" alt="play!" @click="changeImg(index)" />
+          <img class="img front" src="./assets/marvel-logo.png" alt="Marvel" @click="changeImg(index)" />
           <img class="img back" :src= " item.thumbnail.path + '.' + item.thumbnail.extension " :alt= "item.name" @click="changeImg(index)"/>
         </li>
       </ul>
@@ -22,7 +22,7 @@ export default {
 
   },
   data: () => ({
-    title: "Memory Game",
+    title: "Jogo da Memória",
     cards: [],
     counter: 0,
     isActive: {}, 
@@ -36,7 +36,10 @@ export default {
             return !character.thumbnail.path.endsWith('image_not_available')
           }
         )
-        this.cards = filteredGame         
+        filteredGame.length = 10
+        // const list = filteredGame.map(item => ({ ...item }))
+        const list = filteredGame.map(item => Object.assign({}, item))
+        this.cards = filteredGame.concat(list)         
       }).catch((err) => {
 
       });
@@ -64,8 +67,8 @@ export default {
   display: grid;
   font-weight: bold;
   list-style-type: none;
-  grid-gap: 54px;
-  grid-template-columns: repeat(6, 240px);
+  grid-gap: 15px;
+  grid-template-columns: repeat(5, 1fr);
   perspective: 1000; 
 
   li {
