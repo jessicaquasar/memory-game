@@ -35,10 +35,10 @@ export default {
         const filteredGame = game.results.filter(function filter(character) {
           return !character.thumbnail.path.endsWith("image_not_available");
         });
-        filteredGame.length = 10;
         // const list = filteredGame.map(item => ({ ...item }))
         const list = filteredGame.map(item => Object.assign({}, item));
-        this.cards = filteredGame.concat(list);
+        // this.cards = filteredGame.concat(list);
+        this.cards = this.shuffle(filteredGame.concat(list));
         // this.cards.sort(function() { return 0.5 - Math.random() }); // => works!
       })
       .catch(err => {});
